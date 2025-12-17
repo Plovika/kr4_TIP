@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import quotes from './data/quotes';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [currentQuote, setCurrentQuote] = useState(getRandomQuote());
+
+    function getRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        return quotes[randomIndex];
+    }
+
+    function handleNewQuote() {
+        setCurrentQuote(getRandomQuote());
+    }
+
+    return (
+        <div className="app">
+            <div className="quote-box">
+                <div className="quote-text">
+                    <p>"{currentQuote.text}"</p>
+                </div>
+                <div className="quote-author">
+                    <p>- {currentQuote.author}</p>
+                </div>
+                <button
+                    className="new-quote-btn"
+                    onClick={handleNewQuote}
+                >
+                    Новая цитата
+                </button>
+            </div>
+        </div>
+    );
 }
 
 export default App;
